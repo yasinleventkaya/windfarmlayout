@@ -6,6 +6,15 @@ import math
 
 # Contrary to the usual, array_form_of_layout is a matrix formed by sequencing the columns one after the other.
 
+# git status
+# git add .
+# git status
+# git commit -m "message"
+# git push
+
+# git diff
+# git diff dosyapath
+
 row_num = 5                     # number of rows on the layout
 column_num = 4                  # number of columns on the layout
 turbine_num = 12                # number o turbines in the wind farm
