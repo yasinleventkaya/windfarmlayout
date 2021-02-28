@@ -12,6 +12,8 @@ cell_num = row_num * column_num
 loss = 0.83
 turbine_power = 5
 
+#lelele
+
 
 def create_one_layout():
     array_form_of_layout = np.hstack((np.ones((turbine_num,), int), np.zeros((cell_num - turbine_num,), int)))
