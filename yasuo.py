@@ -12,13 +12,11 @@ cell_num = row_num * column_num
 loss = 0.83
 turbine_power = 5
 
-#lelele
-
 
 def create_one_layout():
     array_form_of_layout = np.hstack((np.ones((turbine_num,), int), np.zeros((cell_num - turbine_num,), int)))
     np.random.shuffle(array_form_of_layout)
-    print(array_form_of_layout)
+    # print(array_form_of_layout)
 
     sub_array = []
     output_array = []
@@ -27,6 +25,13 @@ def create_one_layout():
         if cellIndex % row_num == row_num - 1:
             output_array.append(sub_array)
             sub_array = []
-    print(output_array)
+    # print(output_array)
+    retDict = {
+        "justArray": array_form_of_layout,
+        "matrixArray": output_array,
+    }
+    return retDict
 
-create_one_layout()
+
+aa = create_one_layout()
+print(aa)
