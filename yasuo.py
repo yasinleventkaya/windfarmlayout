@@ -11,6 +11,7 @@ turbine_num = 8
 cell_num = row_num * column_num
 loss = 0.83
 turbine_power = 5
+yasuo_var = "yosh"
 
 
 def create_one_layout():
