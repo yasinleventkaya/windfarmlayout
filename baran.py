@@ -7,13 +7,14 @@ import math
 # Contrary to the usual, array_form_of_layout is a matrix formed by sequencing the columns one after the other.
 
 # git status
+# git pull
+# git status
 # git add .
 # git status
 # git commit -m "message"
 # git push
+# git status
 
-# git diff
-# git diff dosyapath
 
 row_num = 5                     # number of rows on the layout
 column_num = 4                  # number of columns on the layout
@@ -22,11 +23,11 @@ cell_num = row_num * column_num
 loss = 0.83
 windSpeed = 10                  # average wind speed in m/s
 cut_in_windSpeed = 6            # cut-in wind speed of the turbine in m/s
-population_size = 100            # number of layouts in a population
+population_size = 10            # number of layouts in a population
 er = 0.1                        # elitism rate
 cr = 0.4                        # crossover rate
 mr = 0.5                        # mutation rate
-generation_number = 10          # number of generations
+generation_number = 100         # number of generations
 
 layouts = []
 
