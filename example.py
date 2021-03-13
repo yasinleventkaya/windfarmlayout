@@ -53,7 +53,7 @@ print(layout1)
 print(layout2)
 
 def mutate_one_layout(lay):
-    # 2. ve 3. elemanı yer değiştir
+    # 2. ve 3. elemanı yer değiştir.
     cacheVar = lay[1]
     lay[1] = lay[2]
     lay[2] = cacheVar
