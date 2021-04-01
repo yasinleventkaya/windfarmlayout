@@ -3,12 +3,12 @@
 import numpy as np
 import copy
 import random
+import matplotlib.pyplot as plt
 
 population_size = 10
 generation_num = 100
 er = 0.1
 cr = 0.4
-mr = 0.3
 
 row_num = 5
 column_num = 6
@@ -53,11 +53,8 @@ def is_static_values_valid():
     if is_value_between(cr, 0, 1):
         msg = "cr 0 ile 1 arasında olmalı."
         warning_msg_list.append(msg)
-    if is_value_between(mr, 0, 1):
-        msg = "mr 0 ile 1 arasında olmalı."
-        warning_msg_list.append(msg)
-    if is_value_between(er + cr + mr, 0, 1):
-        msg = "er + cr + mr 0 ile 1 arasında olmalı."
+    if is_value_between(er + cr, 0, 1):
+        msg = "er + cr 0 ile 1 arasında olmalı."
         warning_msg_list.append(msg)
     if turbine_num > cell_num:
         msg = "turbine_num, cell_num dan büyük olamaz"
@@ -131,7 +128,7 @@ def get_crossover_layouts(layouts):
                 make_crossover(raw_lay1, raw_lay2)
                 ret_layouts.append(get_layout_object_from_raw_array(raw_lay1))
                 ret_layouts.append(get_layout_object_from_raw_array(raw_lay2))
-        return ret_layouts
+        return get_mutated_layouts(ret_layouts)
 
 
 def make_crossover(raw1, raw2):
@@ -202,8 +199,7 @@ def get_generation(prev_generation):
     else:
         generation += get_top_piece_generation(prev_generation, er)
         generation += get_crossover_layouts(get_top_piece_generation(prev_generation, cr))
-        generation += get_mutated_layouts(get_top_piece_generation(prev_generation, mr))
-        generation += get_random_layouts(int(population_size * (1 - er - cr - mr)))
+        generation += get_random_layouts(int(population_size * (1 - er - cr)))
 
     generation = sorted(generation, key=lambda k: k['power'], reverse=True)
     #print_list(generation)
@@ -211,23 +207,40 @@ def get_generation(prev_generation):
 
 
 def start_evolution():
+    winner_layouts_powers_list = []
     active_generation = get_generation([])
+    winner_layouts_powers_list.append(active_generation[0]["power"])
     evolve_num = 0
     for i in range(generation_num):
         if active_generation[0].get("power") > cut_power_coefficient * turbine_num * turbine_power:
             break
         active_generation = get_generation(active_generation)
+        winner_layouts_powers_list.append(active_generation[0]["power"])
         evolve_num += 1
 
     winner_lay = active_generation[0]
-    print("-------------  Winner layout  -------------")
+    print("-------------  Winner Layout  -------------")
     print("Evolve               : " + str(evolve_num) + " times")
     print("raw_array            : " + str(winner_lay["raw_array"]))
     print("column_divided_array : " + str(winner_lay["column_divided_array"]))
     print("power                : " + str(winner_lay["power"]))
     print("max power            : " + str(turbine_num * turbine_power))
     print("efficiency           : " + str(round(100 * winner_lay["power"] / (turbine_num * turbine_power), 2)) + " %")
-    print("-------------  Winner layout  -------------")
+    print("cutoff efficiency    : " + str(round(cut_power_coefficient * 100, 2)) + " %")
+    print("-------------  Winner Layout  -------------")
+    print("-------------  Winners List  -------------")
+    print(len(winner_layouts_powers_list))
+    print(winner_layouts_powers_list)
+    print("-------------  Winners List  -------------")
+
+    x = range(len(winner_layouts_powers_list))
+    y = winner_layouts_powers_list
+    plt.title("Line graph")
+    plt.xlabel("X axis")
+    plt.ylabel("Y axis")
+    # plt.ylim([0, turbine_num * turbine_power])
+    plt.plot(x, y, color="red")
+    plt.show()
 
 
 if __name__ == '__main__':
